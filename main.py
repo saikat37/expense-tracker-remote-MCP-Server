@@ -128,8 +128,22 @@ def categories():
     except Exception as e:
         return f'{{"error": "Could not load categories: {str(e)}"}}'
 
-# Start the server
-if __name__ == "__main__":
-    mcp.run(transport="http", host="0.0.0.0", port=8000)
-    # mcp.run()
+# Server Configuration Notes:
+# ===========================
+# When using 'fastmcp dev main.py':
+#   - FastMCP automatically imports this module and starts the server
+#   - The if __name__ == "__main__" block is NOT executed (module is imported, not run directly)
+#   - FastMCP handles all server configuration automatically
+#
+# When using 'python main.py' directly:
+#   - The if __name__ == "__main__" block IS executed
+#   - You can manually configure transport, host, and port
+#
+# For FastMCP Cloud deployments:
+#   - The module is imported (if __name__ == "__main__" is NOT executed)
+#   - FastMCP Cloud uses streamable-http transport automatically
+#   - Configuration is handled by the deployment platform
 
+if __name__ == "__main__":
+    # Only runs when executing: python main.py (not used by fastmcp dev)
+    mcp.run(transport="http", host="0.0.0.0", port=8000)
